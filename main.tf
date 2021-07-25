@@ -33,7 +33,7 @@ resource "aws_security_group" "ec2a38c443" {
     }
 }
 
-resource "aws_instance" "ec280e0f23" {
+resource "aws_instance" "ec2-instance" {
     ami = "ami-0194c3e07668a7e36"
     key_name = "EC2_Instance"
     vpc_security_group_ids = [aws_security_group.ec2a38c443.id]
