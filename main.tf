@@ -15,6 +15,22 @@ resource "aws_security_group" "ec2a38c443" {
     description = "Security Group for EC2 Instances"
     name = "ec2_instance_sg"
     vpc_id = "vpc-9d9fabf5"
+
+    ingress {
+        description      = "SSH for admin"
+        from_port        = 22
+        to_port          = 22
+        protocol         = "ssh"
+        cidr_blocks      = ["94.2.240.153/32"]
+    }
+
+    ingress {
+        description      = "HTTP for public"
+        from_port        = 80
+        to_port          = 80
+        protocol         = "http"
+        cidr_blocks      = ["0.0.0.0/0"]
+    }
 }
 
 resource "aws_instance" "ec280e0f23" {
