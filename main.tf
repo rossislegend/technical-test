@@ -44,7 +44,7 @@ resource "aws_instance" "ec2-instance" {
     }
 
     ebs_optimized = false
-    iam_instance_profile = "arn:aws:iam::859110110592:instance-profile/EC2-read-s3"
+    iam_instance_profile = "EC2-read-s3"
     root_block_device {
         volume_type = "gp2"
         volume_size = 8
