@@ -39,7 +39,7 @@ resource "aws_instance" "ec280e0f23" {
     vpc_security_group_ids = [aws_security_group.ec2a38c443.id]
     instance_type = "t2.micro"
 
-    tags {
+    tags = {
         Name = "EC2_instance"
     }
 
