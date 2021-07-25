@@ -20,7 +20,7 @@ resource "aws_security_group" "ec2a38c443" {
         description      = "SSH for admin"
         from_port        = 22
         to_port          = 22
-        protocol         = "ssh"
+        protocol         = "tcp"
         cidr_blocks      = ["94.2.240.153/32"]
     }
 
@@ -28,7 +28,7 @@ resource "aws_security_group" "ec2a38c443" {
         description      = "HTTP for public"
         from_port        = 80
         to_port          = 80
-        protocol         = "http"
+        protocol         = "tcp"
         cidr_blocks      = ["0.0.0.0/0"]
     }
 }
@@ -36,17 +36,8 @@ resource "aws_security_group" "ec2a38c443" {
 resource "aws_instance" "ec280e0f23" {
     ami = "ami-0194c3e07668a7e36"
     key_name = "EC2_Instance"
-    vpc_security_group_ids = [
-        "sg-01903965eec6f33bf"
-    ]
+    vpc_security_group_ids = [aws_security_group.ec2a38c443.id]
     instance_type = "t2.micro"
-    tenancy = "default"
-    monitoring = false
-    disable_api_termination = false
-    instance_initiated_shutdown_behavior = "stop"
-    credit_specification {
-        cpu_credits = "standard"
-    }
 
     tags {
         Name = "EC2_instance"
@@ -72,4 +63,8 @@ sudo mv ./index.html /var/www/html/index.html
 
 sudo systemctl restart nginx
 EOF
+
+  lifecycle {
+      create_before_destroy = true
+  }
 }
