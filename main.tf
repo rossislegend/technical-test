@@ -122,13 +122,13 @@ resource "aws_lb_target_group" "ec2-target-group" {
 
 resource "aws_lb_target_group_attachment" "ec2-target-instance1" {
     target_group_arn = aws_lb_target_group.ec2-target-group.arn
-    target_id = aws_instance.ec2-instance1
+    target_id = aws_instance.ec2-instance1.id
     port = 80
 }
 
 resource "aws_lb_target_group_attachment" "ec2-target-instance2" {
     target_group_arn = aws_lb_target_group.ec2-target-group.arn
-    target_id = aws_instance.ec2-instance2
+    target_id = aws_instance.ec2-instance2.id
     port = 80
 }
 
