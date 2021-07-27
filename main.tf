@@ -112,3 +112,44 @@ EOF
       create_before_destroy = true
   }
 }
+
+resource "aws_lb_target_group" "ec2-target-group" {
+  name     = "ec2-target-group"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = "vpc-9d9fabf5"
+}
+
+resource "aws_lb_target_group_attachment" "ec2-target-instance1" {
+    target_group_arn = aws_lb_target_group.ec2-target-group.arn
+    target_id = aws_instance.ec2-instance1
+    port = 80
+}
+
+resource "aws_lb_target_group_attachment" "ec2-target-instance2" {
+    target_group_arn = aws_lb_target_group.ec2-target-group.arn
+    target_id = aws_instance.ec2-instance2
+    port = 80
+}
+
+resource "aws_lb" "ec2-nlb" {
+    name = "ec2-nlb"
+    internal = false
+    load_balancer_type = "network"
+    subnets = [
+        "subnet-7b576e12",
+        "subnet-ded3a9a4",
+        "subnet-8c5ad2c0"
+    ]
+}
+
+resource "aws_lb_listener" "ec2-nlb-listener" {
+    load_balancer_arn = aws_lb.ec2-nlb.arn
+    port = "80"
+    protocol = "TCP"
+
+    default_action {
+        type = "forward"
+        target_group_arn = aws_lb_target_group.ec2-target-group.arn 
+    }
+}
