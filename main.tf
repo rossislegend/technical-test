@@ -116,7 +116,7 @@ EOF
 resource "aws_lb_target_group" "ec2-target-group" {
   name     = "ec2-target-group"
   port     = 80
-  protocol = "HTTP"
+  protocol = "TCP"
   vpc_id   = "vpc-9d9fabf5"
 }
 
