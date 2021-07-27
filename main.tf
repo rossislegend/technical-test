@@ -35,7 +35,7 @@ resource "aws_security_group" "ec2a38c443" {
 
 resource "aws_instance" "ec2-instance1" {
     ami = "ami-0194c3e07668a7e36"
-    key_name = "EC2_Instance1"
+    key_name = "EC2_Instance"
     vpc_security_group_ids = [aws_security_group.ec2a38c443.id]
     instance_type = "t2.micro"
 
@@ -71,7 +71,7 @@ EOF
 
 resource "aws_instance" "ec2-instance2" {
     ami = "ami-0194c3e07668a7e36"
-    key_name = "EC2_Instance2"
+    key_name = "EC2_Instance"
     vpc_security_group_ids = [aws_security_group.ec2a38c443.id]
     instance_type = "t2.micro"
 
